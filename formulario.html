@@ -10,15 +10,20 @@
 
 <body>
 
-    <div class="case-file">
-        <span class="tab">Formulario</span>
-        <div class="folder">
-            <h1>Formulario de <span>Inscrição</span></h1>
-            <div class="subtitle">Preencha os dados abaixo 
-                para se inscrever como dev. full stalck.</div>
+    <form id="dossierForm" action="https://formspree.io/f/maqgkjyy" method="POST" novalidate>
 
-            <form id="dossierForm" novalidate>
+        <div class="case-file">
+            <span class="tab">Formulario</span>
+
+            <div class="folder">
+                <h1>Formulario de <span>Inscrição</span></h1>
+
+                <div class="subtitle">
+                    Preencha os dados abaixo para se inscrever como dev. full stack.
+                </div>
+
                 <div class="grid">
+
                     <div class="field full">
                         <label for="nome">Nome completo</label>
                         <input type="text" id="nome" name="nome" placeholder="Satoro Gojo" required>
@@ -50,26 +55,29 @@
 
                     <div class="field full">
                         <label for="telefone">Telefone</label>
-                        <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15"
-                            required>
+                        <input type="text" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                         <div class="hint" id="hint-telefone"></div>
                     </div>
 
                     <div class="field full">
                         <label for="comentario">Comentário</label>
-                        <textarea id="comentario" name="comentario"
-                            placeholder="O que achou do nosso site?" required></textarea>
+                        <textarea id="comentario" name="comentario" placeholder="O que achou do nosso site?" required></textarea>
                     </div>
+
                 </div>
 
                 <div class="submit-row">
                     <button type="submit" id="btnEnviar">Enviar</button>
                     <span class="status" id="status"></span>
                 </div>
-            </form>
+
+            </div>
         </div>
-    </div>
+
+    </form>
 
     <script src="script2.js"></script>
+
 </body>
+
 </html>

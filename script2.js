@@ -6,37 +6,43 @@ const form = document.getElementById('dossierForm');
 const status = document.getElementById('status');
 const btn = document.getElementById('btnEnviar');
 
-// Máscara simples de CEP
+// Máscara de CEP
 cepInput.addEventListener('input', () => {
     let v = cepInput.value.replace(/\D/g, '').slice(0, 8);
-    if (v.length > 5) v = v.slice(0, 5) + '-' + v.slice(5);
+
+    if (v.length > 5) {
+        v = v.slice(0, 5) + '-' + v.slice(5);
+    }
+
     cepInput.value = v;
 });
 
-// Busca real de endereço via API ViaCEP quando o CEP estiver completo
+// Busca do endereço pelo ViaCEP
 cepInput.addEventListener('blur', async () => {
     const cepLimpo = cepInput.value.replace(/\D/g, '');
+
     if (cepLimpo.length !== 8) return;
 
-    hintCep.textContent = 'Consultando ViaCEP...';
+    hintCep.textContent = 'Consultando CEP...';
     hintCep.className = 'hint';
 
     try {
-        const resp = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-        const data = await resp.json();
+        const resposta = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        const dados = await resposta.json();
 
-        if (data.erro) {
+        if (dados.erro) {
             hintCep.textContent = 'CEP não encontrado.';
             hintCep.className = 'hint err';
             ruaInput.value = '';
             return;
         }
 
-        ruaInput.value = `${data.logradouro || ''}${data.bairro ? ', ' + data.bairro : ''} — ${data.localidade}/${data.uf}`;
-        hintCep.textContent = 'Endereço localizado com sucesso.';
+        ruaInput.value = `${dados.logradouro}, ${dados.bairro} - ${dados.localidade}/${dados.uf}`;
+        hintCep.textContent = 'Endereço encontrado!';
         hintCep.className = 'hint ok';
-    } catch (err) {
-        hintCep.textContent = 'Falha ao consultar o CEP. Verifique sua conexão.';
+
+    } catch {
+        hintCep.textContent = 'Erro ao consultar o CEP.';
         hintCep.className = 'hint err';
     }
 });
@@ -44,6 +50,7 @@ cepInput.addEventListener('blur', async () => {
 // Máscara de telefone
 telInput.addEventListener('input', () => {
     let v = telInput.value.replace(/\D/g, '').slice(0, 11);
+
     if (v.length > 10) {
         v = v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
     } else if (v.length > 5) {
@@ -51,27 +58,56 @@ telInput.addEventListener('input', () => {
     } else if (v.length > 0) {
         v = v.replace(/(\d{0,2})/, '($1');
     }
+
     telInput.value = v;
 });
 
-form.addEventListener('submit', (e) => {
+// Envio do formulário
+form.addEventListener('submit', async (e) => {
+
     e.preventDefault();
 
     if (!form.checkValidity()) {
-        status.textContent = 'Preencha todos os campos obrigatórios.';
-        status.style.color = '#b5302f';
+        status.textContent = "Preencha todos os campos.";
+        status.style.color = "red";
         return;
     }
 
     btn.disabled = true;
-    btn.textContent = 'Registrando...';
-    status.textContent = 'Salvando depoimento...';
-    status.style.color = '#6f6655';
+    btn.textContent = "Enviando...";
+    status.textContent = "Enviando inscrição...";
 
-    // Aqui entraria a chamada para sua API real de cadastro, ex:
-    // await fetch('https://sua-api.com/depoimentos', { method: 'POST', body: JSON.stringify(dados) });
+    try {
 
-    setTimeout(() => {
-        window.location.href = 'agradecimento.html';
-    }, 700);
+        const resposta = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (resposta.ok) {
+
+            status.textContent = "Inscrição enviada com sucesso!";
+
+            setTimeout(() => {
+                window.location.href = "agradecimento.html";
+            }, 1500);
+
+        } else {
+
+            status.textContent = "Erro ao enviar. Tente novamente.";
+            btn.disabled = false;
+            btn.textContent = "Enviar";
+
+        }
+
+    } catch {
+
+        status.textContent = "Erro de conexão.";
+        btn.disabled = false;
+        btn.textContent = "Enviar";
+
+    }
 });
