@@ -1,0 +1,129 @@
+:root {
+    --ink: #050b18;
+    --paper: #ffffff;
+    --paper-light: #eef4fb;
+    --deep: #0b2a52;
+    --sky: #2f8fe0;
+    --line: #c3d3e3;
+    --muted: #4a5c70;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background: var(--ink);
+    background-image:
+        radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, transparent 2px, transparent 4px);
+    color: var(--paper);
+    min-height: 100vh;
+    padding: 48px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.case-file {
+    width: 100%;
+    max-width: 480px;
+}
+
+.tab {
+    background: var(--deep);
+    color: var(--paper-light);
+    display: inline-block;
+    padding: 6px 18px 8px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+}
+
+.folder {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 44px 40px 40px;
+    border-radius: 2px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    position: relative;
+    text-align: center;
+}
+
+.folder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--deep) 0 14px, transparent 14px 28px);
+    opacity: 0.7;
+}
+
+.check {
+    width: 56px;
+    height: 56px;
+    line-height: 56px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: var(--deep);
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 0 0 18px;
+    color: var(--ink);
+}
+
+h1 span {
+    color: var(--sky);
+    font-style: italic;
+}
+
+.msg {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--line);
+}
+
+.back-btn {
+    display: inline-block;
+    background: #000000;
+    color: #f5f5f5;
+    text-decoration: none;
+    padding: 14px 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 2px;
+    transition: background .15s, transform .15s;
+}
+
+.back-btn:hover {
+    background: var(--sky);
+}
+
+.back-btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width:560px) {
+    .folder {
+        padding: 34px 24px 32px;
+    }
+}

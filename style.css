@@ -1,0 +1,223 @@
+:root {
+    --ink: #050b18;
+    --paper: #ffffff;
+    --paper-light: #eef4fb;
+    --red: #0b2a52;
+    --red-bright: #2f8fe0;
+    --line: #c3d3e3;
+    --muted: #4a5c70;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background: var(--ink);
+    background-image:
+        radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, transparent 2px, transparent 4px);
+    color: var(--paper);
+    min-height: 100vh;
+    padding: 48px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.case-file {
+    width: 100%;
+    max-width: 640px;
+}
+
+.tab {
+    background: var(--red);
+    color: var(--paper-light);
+    display: inline-block;
+    padding: 6px 18px 8px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+}
+
+.folder {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 38px 40px 44px;
+    border-radius: 2px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    position: relative;
+}
+
+.folder::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--red) 0 14px, transparent 14px 28px);
+    opacity: 0.7;
+}
+
+.case-number {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+    color: var(--ink);
+}
+
+h1 span {
+    color: var(--red-bright);
+    font-style: italic;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 30px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--line);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1.5px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a89f8b;
+}
+
+input:focus,
+textarea:focus {
+    border-bottom-color: var(--red-bright);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+.hint.ok {
+    color: #3a6b35;
+}
+
+.hint.err {
+    color: #b5302f;
+}
+
+.submit-row {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+button {
+    background: #000000;
+    color: #f5f5f5;
+    border: none;
+    padding: 14px 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background .15s, transform .15s;
+}
+
+button:hover {
+    background: var(--red-bright);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background: #a89f8b;
+    cursor: not-allowed;
+}
+
+.status {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.stamp {
+    position: absolute;
+    bottom: 28px;
+    right: 36px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--line);
+    transform: rotate(-6deg);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    text-transform: uppercase;
+}
+
+@media (max-width:560px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .folder {
+        padding: 28px 22px 36px;
+    }
+}
