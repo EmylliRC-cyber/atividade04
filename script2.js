@@ -6,7 +6,6 @@ const form = document.getElementById('dossierForm');
 const status = document.getElementById('status');
 const btn = document.getElementById('btnEnviar');
 
-// Máscara de CEP
 cepInput.addEventListener('input', () => {
     let v = cepInput.value.replace(/\D/g, '').slice(0, 8);
 
@@ -17,7 +16,6 @@ cepInput.addEventListener('input', () => {
     cepInput.value = v;
 });
 
-// Busca do endereço pelo ViaCEP
 cepInput.addEventListener('blur', async () => {
     const cepLimpo = cepInput.value.replace(/\D/g, '');
 
@@ -47,7 +45,9 @@ cepInput.addEventListener('blur', async () => {
     }
 });
 
-// Máscara de telefone
+
+
+
 telInput.addEventListener('input', () => {
     let v = telInput.value.replace(/\D/g, '').slice(0, 11);
 
@@ -62,7 +62,6 @@ telInput.addEventListener('input', () => {
     telInput.value = v;
 });
 
-// Envio do formulário
 form.addEventListener('submit', async (e) => {
 
     e.preventDefault();
